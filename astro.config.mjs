@@ -5,23 +5,20 @@ import remarkGfm from "remark-gfm";
 import remarkSmartypants from "remark-smartypants";
 import rehypeExternalLinks from "rehype-external-links";
 
+import vercel from "@astrojs/vercel/serverless";
+
 // https://astro.build/config
 export default defineConfig({
-  site: "https://namanbnsl.github.io",
-  base: "/blog",
   integrations: [mdx(), svelte()],
   markdown: {
     shikiConfig: {
-      theme: "nord",
+      theme: "nord"
     },
     remarkPlugins: [remarkGfm, remarkSmartypants],
-    rehypePlugins: [
-      [
-        rehypeExternalLinks,
-        {
-          target: "_blank",
-        },
-      ],
-    ],
+    rehypePlugins: [[rehypeExternalLinks, {
+      target: "_blank"
+    }]]
   },
+  output: "server",
+  adapter: vercel()
 });
